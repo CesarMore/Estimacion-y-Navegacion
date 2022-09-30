@@ -1,0 +1,19 @@
+function [dxdt] = modelsystem3(t,x,u,d)
+    m  = 0.1;
+    mc = 1;
+    l  = 0.5;
+    g  = 9.81;
+    %d=0.2*sin(x(1)*x(2));
+    fx2 = (g*sin(x(1))-(m*l*(x(2))^2*cos(x(1))*sin(x(1)))/(mc+m)) /(l*(4/3-m*cos(x(1))^2/(mc+m)));
+    g12 = (cos(x(1))/(mc+m)) / (l*(4/3-m*cos(x(1))^2/(mc+m)));
+    lx=[0 5];
+    px=x(2);
+    %fx=[x(2); ((g*sin(x(1)))- (m*l*x(2)*x(2)*cos(x(1))*sin(x(1))))/(l*(l*(4/3-(m*cos(x(1))*cos(x(1))/(mc+m)))))];
+    %g1=[0; ((cos(x(1))*sin(x(1)))/(mc+m))/(l*(4/3-((m*cos(x(1))*cos(x(1)))/(mc+m))))];
+    fx = [x(2); (g*sin(x(1))-(m*l*(x(2))^2*cos(x(1))*sin(x(1)))/(mc+m)) /(l*(4/3-m*cos(x(1))^2/(mc+m)))];
+    g1 = [0; (cos(x(1))/(mc+m)) / (l*(4/3-m*cos(x(1))^2/(mc+m)))];
+    g2=[0;1];
+    dxdt(1,1) = x(2);
+    dxdt(2,1) = fx2 + g12*u + d; 
+%     dzdt      = -lx*g2*z-lx*(g2*px+fx+g1*u);
+end
